@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class ="HomeDataBinding">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="homeviewModel"
+            type="com.vipin.mvvm_vip_demo.ui.activity.home.HomeViewModel"/>
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#05acdf"
+            android:text="@{homeviewModel.sample}"
+            android:onClick="@{ () -> homeviewModel.OnClickAction() }"
+        android:id="@+id/data_txt" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_above="@+id/btn"
+            android:layout_below="@+id/data_txt"
+            android:id="@+id/card_layout"
+            card_view:cardBackgroundColor="@color/cardview_shadow_end_color"
+            card_view:cardCornerRadius="15dp"
+            card_view:cardElevation="2dp">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/data_list"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                bind:dataListNew="@{ homeviewModel.mDataList }"/>
+
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorAccent"
+            android:visibility="@{ homeviewModel.mDataList.size() > 0 ? View.GONE : View.VISIBLE }"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/no_data_list"
+            android:text="No Data Found"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set me"
+            android:id="@+id/btn"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentBottom="true"
+            android:onClick="@{ () -> homeviewModel.OnLoadingData() }" />
+
+    </RelativeLayout>
+
+</layout>
